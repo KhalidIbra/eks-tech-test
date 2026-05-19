@@ -1,0 +1,14 @@
+# Ignore local Python virtual environments
+app/venv/
+
+# Python cache and metadata
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# macOS files
+.DS_Store
+
+# Editor settings
+.vscode/
