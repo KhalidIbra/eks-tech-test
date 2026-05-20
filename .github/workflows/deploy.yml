@@ -36,10 +36,8 @@ jobs:
           # or a GitHub App token.
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install kustomize
-        run: |
-          curl -sL https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
-          sudo mv kustomize /usr/local/bin/
+      - name: Verify kustomize
+        run: kustomize version
 
       - name: Update image tag
         working-directory: ${{ env.MANIFEST_DIR }}
