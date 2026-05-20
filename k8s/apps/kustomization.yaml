@@ -4,11 +4,11 @@ kind: Kustomization
 namespace: webserver
 
 resources:
-  - deployment.yaml
-  - service.yaml
-  - ingress.yaml
+- deployment.yaml
+- service.yaml
+- ingress.yaml
 
 images:
-  - name: webserver
-    newName: 676206939809.dkr.ecr.eu-west-2.amazonaws.com/boba-tech-test-webserver
-    newTag: placeholder   # CI rewrites this line on every successful build
+- name: webserver
+  newName: 676206939809.dkr.ecr.eu-west-2.amazonaws.com/boba-tech-test-webserver
+  newTag: 74a2e19
