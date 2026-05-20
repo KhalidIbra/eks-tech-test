@@ -46,7 +46,7 @@ resource "aws_eks_cluster" "main" {
     endpoint_public_access  = true  # set to false and use a bastion in prod
   }
 
-  # Enable control plane logging — useful for audit and debugging
+  # Enables control plane logging for audit and debugging
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   depends_on = [
