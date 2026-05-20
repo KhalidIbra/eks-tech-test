@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ARGOCD_VERSION="${ARGOCD_VERSION:-v2.10.7}"
-REGION="$(terraform -chdir=terraform/environments/dev output -raw region)"
+REGION="eu-west-2"
 CLUSTER_NAME="$(terraform -chdir=terraform/environments/dev output -raw cluster_name)"
 
 echo "Configuring kubectl for cluster ${CLUSTER_NAME}..."
@@ -17,6 +17,6 @@ echo "Waiting for ArgoCD to be ready..."
 kubectl -n argocd wait --for=condition=available --timeout=300s deployment/argocd-server
 
 echo "Applying root Application..."
-kubectl apply -f argocd/bootstrap.yml
+kubectl apply -f argocd/bootstrap.yaml
 
 echo "Done. ArgoCD will now sync everything from Git."

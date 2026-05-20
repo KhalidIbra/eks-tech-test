@@ -6,9 +6,17 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/KhalidIbra/boba-tech-test.git
-    targetRevision: main
-    path: k8s/platform/aws-load-balancer-controller
+    repoURL: https://aws.github.io/eks-charts
+    chart: aws-load-balancer-controller
+    targetRevision: 1.7.2
+    helm:
+      values: |
+        clusterName: boba-tech-test-dev-cluster
+        serviceAccount:
+          create: true
+          name: aws-load-balancer-controller
+          annotations:
+            eks.amazonaws.com/role-arn: arn:aws:iam::676206939809:role/boba-tech-test-dev-aws-lbc-role
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
@@ -17,4 +25,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-      - ServerSideApply=true   
+      - ServerSideApply=true
