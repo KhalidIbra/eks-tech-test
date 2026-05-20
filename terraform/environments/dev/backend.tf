@@ -1,10 +1,10 @@
 
 terraform {
   backend "s3" {
-    bucket         = "devops-eks-demo-tfstate"
+    bucket         = "boba-tech-demo-tfstate"
     key            = "environments/dev/terraform.tfstate"
-    region         = "eu-west-1"
-    dynamodb_table = "devops-eks-demo-tflocks"
+    region         = "eu-west-2"
+    dynamodb_table = "boba-tech-demo-tflocks"
     encrypt        = true
   }
 }

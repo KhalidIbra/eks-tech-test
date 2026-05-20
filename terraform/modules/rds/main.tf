@@ -36,7 +36,7 @@ resource "aws_db_instance" "mysql" {
 
   multi_az               = var.multi_az
   db_subnet_group_name   = aws_db_subnet_group.main.name
-  vpc_security_group_ids = [aws_security_group.rds.id]
+  vpc_security_group_ids = var.allowed_security_group_ids
   parameter_group_name   = aws_db_parameter_group.main.name
   publicly_accessible    = false
 
@@ -92,8 +92,8 @@ resource "aws_secretsmanager_secret_version" "db_credentials" {
   secret_string = jsonencode({
     username = var.master_username
     password = random_password.master.result
-    host     = aws_db_instance.main.address
-    port     = aws_db_instance.main.port
+    host     = aws_db_instance.mysql.address
+    port     = aws_db_instance.mysql.port
     dbname   = var.database_name
   })
 }

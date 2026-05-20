@@ -18,7 +18,7 @@ variable "create_route53_zone" {
 variable "hosted_zone_id" {
   description = "Existing Route53 hosted zone ID. Required if create_route53_zone is false."
   type        = string
-  default     = null
+  default     = "Z056239524OLC450SQQVI"
 }
 
 variable "validation_method" {

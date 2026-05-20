@@ -1,5 +1,5 @@
-region          = "eu-west-1"
+region          = "eu-west-2"
 project_name    = "boba-tech-test"
 environment     = "dev"
-domain_name     = "dev.example.com"
-hosted_zone_id  = "Z0123456789ABCDEFGHIJ"
+domain_name     = "kihellowebserver.co.uk"
+hosted_zone_id  = "Z056239524OLC450SQQVI"

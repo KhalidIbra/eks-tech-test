@@ -18,11 +18,6 @@ output "db_name" {
   value       = aws_db_instance.mysql.db_name
 }
 
-output "db_security_group_id" {
-  description = "ID of the RDS security group"
-  value       = aws_security_group.rds.id
-}
-
 output "db_credentials_secret_arn" {
   description = "ARN of the Secrets Manager secret containing DB credentials"
   value       = aws_secretsmanager_secret.db_credentials.arn

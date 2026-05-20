@@ -1,26 +1,23 @@
 output "cluster_endpoint" {
-  value = aws_eks_cluster.main.endpoint
+  value = module.eks.cluster_endpoint
 }
 
 output "cluster_ca_certificate" {
-  value = aws_eks_cluster.main.certificate_authority[0].data
+  value = module.eks.cluster_certificate_authority
 }
 
 output "cluster_name" {
-  value = aws_eks_cluster.main.name
+  value = module.eks.cluster_name
 }
 
 output "oidc_provider_arn" {
-  value = aws_iam_openid_connect_provider.eks.arn
+  value = module.eks.oidc_provider_arn
 }
 
 output "node_security_group_id" {
-  value = aws_eks_cluster.main.vpc_config[0].cluster_security_group_id
+  value = module.securitygroups.eks_nodes_security_group_id
 }
 
-output "aws_load_balancer_controller_role_arn" {
-  value = aws_iam_role.aws_load_balancer_controller.arn
-}
 
 output "repository_url" {
   value = module.ecr.repository_url
@@ -35,7 +32,7 @@ output "db_credentials_secret_name" {
 }
 
 output "certificate_arn" {
-  value = module.acm.certificate_arn
+  value = module.dns_certs.certificate_arn
 }
 
 output "app_url" {
