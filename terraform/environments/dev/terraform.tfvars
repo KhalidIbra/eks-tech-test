@@ -1,0 +1,5 @@
+region          = "eu-west-1"
+project_name    = "boba-tech-test"
+environment     = "dev"
+domain_name     = "dev.example.com"
+hosted_zone_id  = "Z0123456789ABCDEFGHIJ"
