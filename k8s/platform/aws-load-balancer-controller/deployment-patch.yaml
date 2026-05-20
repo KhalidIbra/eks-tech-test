@@ -1,21 +1,7 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: aws-load-balancer-controller
-  namespace: kube-system
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: aws-load-balancer-controller
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: aws-load-balancer-controller
-    spec:
-      containers:
-        - name: aws-load-balancer-controller
-          args:
-            - --cluster-name=boba-tech-test-dev-cluster
-            - --ingress-class=alb
-            - --aws-vpc-id=vpc-0b0afe632efc4713b
-            - --aws-region=eu-west-2
+- op: replace
+  path: /spec/template/spec/containers/0/args
+  value:
+    - --cluster-name=boba-tech-test-dev-cluster
+    - --ingress-class=alb
+    - --aws-vpc-id=vpc-0b0afe632efc4713b
+    - --aws-region=eu-west-2
