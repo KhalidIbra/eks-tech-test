@@ -48,7 +48,7 @@ resource "aws_db_instance" "mysql" {
   
   enabled_cloudwatch_logs_exports = ["error", "slowquery"]
 
-  # Performance Insights is free for 7 days 
+  
   performance_insights_enabled          = true
   performance_insights_retention_period = 7
 
