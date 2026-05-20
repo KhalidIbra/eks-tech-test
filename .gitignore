@@ -12,3 +12,14 @@ __pycache__/
 
 # Editor settings
 .vscode/
+
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
+
+# Ignore .env files containing sensitive information
+*.env
+
+license.txt
+
+terraform-provider

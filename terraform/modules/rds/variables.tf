@@ -1,6 +1,7 @@
 variable "identifier" {
-  description = "RDS instance identifier (e.g. devops-eks-demo-dev)"
+  description = "RDS instance identifier"
   type        = string
+  default = "boba-tech-test-dev"
 }
 
 variable "engine_version" {
