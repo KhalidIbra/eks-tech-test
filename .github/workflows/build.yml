@@ -44,7 +44,7 @@ jobs:
 
       - name: Test
         working-directory: app
-        run: pytest -q
+        run: python -m pytest -q
 
   build:
     name: Build and push image
