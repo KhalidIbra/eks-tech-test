@@ -12,18 +12,23 @@ def hello_world():
 def health_check():
     return {"status": "OK"}, 200
 
-@app.route('/db')
+@app.route("/db")
 def db_check():
     try:
-        connection = mysql.connector.connect(
+        with mysql.connector.connect(
             host=os.environ["DB_HOST"],
+            port=int(os.environ.get("DB_PORT", "3306")),
             user=os.environ["DB_USER"],
             password=os.environ["DB_PASSWORD"],
-            database=os.environ["DB_NAME"]
-        )
-        return {"status": "Database connection successful"}, 200
-    except mysql.connector.Error as err:
-        return {"status": "Database connection failed", "error": str(err)}, 500
+            database=os.environ["DB_NAME"],
+            connection_timeout=3,
+        ) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT 1")
+                cur.fetchone()
+        return {"db": "ok"}, 200
+    except Exception as e:
+        return {"db": "error", "detail": str(e)}, 500
     
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080)
