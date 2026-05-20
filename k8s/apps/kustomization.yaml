@@ -11,4 +11,4 @@ resources:
 images:
 - name: webserver
   newName: 676206939809.dkr.ecr.eu-west-2.amazonaws.com/boba-tech-test-webserver
-  newTag: 74a2e19
+  newTag: 380ce43
