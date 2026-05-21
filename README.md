@@ -169,16 +169,14 @@ Rollback can easily be done through the ArgoCD UI
 
 ## Teardown
 
-```bash
-# Delete cluster-managed resources first so the AWS LBC removes the ALB
-kubectl delete -f argocd/root-app.yaml
-kubectl -n argocd wait --for=delete application/webserver --timeout=300s
 
-# Then Terraform
-cd terraform/environments/dev
-terraform destroy
+Run `./scripts/teardown.sh` from the repository root. This:
 
-# Remove the manually-created Route53 A-record
-```
+1. Disables ArgoCD self-heal so deletions persist.
+2. Deletes ArgoCD Applications, which triggers the AWS Load Balancer Controller to delete the ALB.
+3. Waits up to 5 minutes for AWS-side ALB cleanup to complete (this prevents `terraform destroy` from failing on VPC dependency violations).
+4. Deletes the manually-created Route53 A-record.
+5. Runs `terraform destroy`.
 
-If `terraform destroy` hangs on the VPC, an orphaned ALB or ENI usually causes it — delete in the AWS console and retry.
+The script is idempotent and safe to re-run if any step fails. 
+
