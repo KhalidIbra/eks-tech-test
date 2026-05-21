@@ -12,6 +12,8 @@ spec:
     helm:
       values: |
         clusterName: boba-tech-test-dev-cluster
+        region: eu-west-2
+        vpcId: vpc-0b0afe632efc4713b
         serviceAccount:
           create: true
           name: aws-load-balancer-controller
