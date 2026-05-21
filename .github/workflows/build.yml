@@ -3,12 +3,10 @@ name: build
 on:
   push:
     branches: [main]
-    paths:
-      - 'app/**'
-      - '.github/workflows/build.yml'
   pull_request:
-    paths:
-      - 'app/**'
+    branches: [main]
+    
+     
 
 permissions:
   contents: write
