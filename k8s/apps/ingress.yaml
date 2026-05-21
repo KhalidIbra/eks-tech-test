@@ -12,7 +12,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: kihellowebserver.co.uk
+    - host: hello.kihellowebserver.co.uk
       http:
         paths:
           - path: /
