@@ -38,3 +38,7 @@ output "certificate_arn" {
 output "app_url" {
   value = "https://hello.${var.domain_name}"
 }
+
+output "external_secrets_role_arn" {
+  value = module.eks.external_secrets_role_arn
+}
