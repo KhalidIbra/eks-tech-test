@@ -19,13 +19,13 @@ module "eks" {
   environment         = var.environment
   cluster_version     = var.cluster_version
   eks_nodes_security_group_id = module.securitygroups.eks_nodes_security_group_id
-  vpc_id = var.vpc_cidr
+  vpc_id = module.networking.vpc_id
   private_subnet_ids  = module.networking.private_subnet_ids
   public_subnet_ids   = module.networking.public_subnet_ids
 
-  node_desired_size   = 2
-  node_min_size       = 2
-  node_max_size       = 4
+  node_desired_size   = 3
+  node_min_size       = 3
+  node_max_size       = 6
   node_instance_types = ["t3.medium"]
 
   tags = local.common_tags
