@@ -4,37 +4,6 @@ A highly available webserver on EKS with a MySQL backend, deployed via GitOps. I
 
 ## Architecture
 
-```
-                              ┌──────────────────────────┐
-                              │  GitHub Actions CI       │
-                              │  (OIDC auth to AWS)      │
-                              └────────────┬─────────────┘
-                                           │ build → push image
-                                           │ update kustomization.yaml
-                                           ▼
-                              ┌──────────────────────────┐
-                              │  Git (this repo)         │  ◄── source of truth
-                              └────────────┬─────────────┘
-                                           │ ArgoCD watches
-                                           ▼
-   ┌──────────────────┐         ┌──────────────────────────┐
-   │ Route53 + ACM    │────────▶│  AWS Application LB      │
-   └──────────────────┘         └────────────┬─────────────┘
-                                              │ HTTPS termination
-                                              ▼
-                              ┌──────────────────────────┐
-                              │  EKS (private subnets)   │
-                              │  ┌────────────────────┐  │
-                              │  │ webserver pods x2  │  │
-                              │  │ (spread across AZs)│  │
-                              │  └─────────┬──────────┘  │
-                              └────────────┼─────────────┘
-                                           │
-                                           ▼
-                              ┌──────────────────────────┐
-                              │  RDS MySQL (Multi-AZ)    │
-                              └──────────────────────────┘
-```
 
 ## Repository Layout
 
