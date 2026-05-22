@@ -1,7 +1,0 @@
-- op: replace
-  path: /spec/template/spec/containers/0/args
-  value:
-    - --cluster-name=boba-tech-test-dev-cluster
-    - --ingress-class=alb
-    - --aws-vpc-id=vpc-0b0afe632efc4713b
-    - --aws-region=eu-west-2

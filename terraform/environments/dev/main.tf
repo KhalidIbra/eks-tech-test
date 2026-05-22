@@ -51,11 +51,11 @@ module "rds" {
   identifier                 = "${var.project_name}-${var.environment}"
   subnet_ids                 = module.networking.private_subnet_ids
   vpc_id                     = module.networking.vpc_id
-  allowed_security_group_ids = [module.securitygroups.rds_security_group_id]
+  allowed_security_group_ids = [module.securitygroups.eks_nodes_security_group_id]
 
   multi_az            = true
-  deletion_protection = false   # dev only 
-  skip_final_snapshot = true    # dev only
+  deletion_protection = false   # dev environment only 
+  skip_final_snapshot = true    # dev environment only
 
   tags = local.common_tags
 }

@@ -11,8 +11,6 @@ spec:
     targetRevision: 58.2.1
     helm:
       values: |
-        grafana:
-          adminPassword: adminpassword
         prometheus:
           prometheusSpec:
             serviceMonitorSelectorNilUsesHelmValues: false
