@@ -4,7 +4,8 @@ A highly available webserver on EKS with a MySQL backend, deployed via GitOps. I
 
 ## Architecture
 
-<img width="812" height="850" alt="eks2" src="https://github.com/user-attachments/assets/97907aa8-8c3c-4b24-8179-63799503751f" />
+<img width="812" height="850" alt="image" src="https://github.com/user-attachments/assets/ab683f18-b811-4136-8ce0-d32229187506" />
+
 
 
 ## Repository Layout
