@@ -50,7 +50,11 @@ terraform init
 terraform apply
 
 # 2. Bootstrap the cluster 
-./scripts/bootstrap.sh
+
+'./scripts/bootstrap.sh'
+
+Can be run using the makefile with instruction 'makefile bootstrap'.
+
 
 # 3. Create the DB credentials Secret 
 kubectl create namespace webserver --dry-run=client -o yaml | kubectl apply -f -
@@ -144,7 +148,7 @@ kubectl -n monitoring get secret monitoring-grafana \
 ## Teardown
 
 
-Run `./scripts/teardown.sh` from the repository root. This:
+Run `./scripts/teardown.sh` using the makefile instruction: 'makefile destroy'. This:
 
 1. Disables ArgoCD self-heal so deletions persist.
 2. Deletes ArgoCD Applications, which triggers the AWS Load Balancer Controller to delete the ALB.

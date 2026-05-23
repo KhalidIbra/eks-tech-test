@@ -8,3 +8,7 @@ bootstrap:
 
 deploy: infra bootstrap
 	@echo "Cluster is bootstrapped. ArgoCD will sync the rest from Git."
+
+destroy:
+    ./scripts/teardown.sh
+
