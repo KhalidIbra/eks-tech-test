@@ -39,6 +39,7 @@ resource "aws_db_instance" "mysql" {
   vpc_security_group_ids = var.allowed_security_group_ids
   parameter_group_name   = aws_db_parameter_group.main.name
   publicly_accessible    = false
+  manage_master_user_password = true
 
   backup_retention_period = var.backup_retention_days
   backup_window           = "03:00-04:00"
@@ -70,12 +71,6 @@ resource "aws_db_instance" "mysql" {
 }
 
 #------------------ AWS Secrets Manager Secret for DB Credentials ------------------#
-
-resource "random_password" "master" {     # Generates a random password for the RDS master user
-  length           = 32
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
 
 resource "aws_secretsmanager_secret" "db_credentials" {
   name        = "${var.identifier}-db-credentials"

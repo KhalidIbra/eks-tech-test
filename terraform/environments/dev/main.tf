@@ -22,6 +22,7 @@ module "eks" {
   vpc_id = module.networking.vpc_id
   private_subnet_ids  = module.networking.private_subnet_ids
   public_subnet_ids   = module.networking.public_subnet_ids
+  access_cidrs = var.access_cidrs
 
   node_desired_size   = 3
   node_min_size       = 3

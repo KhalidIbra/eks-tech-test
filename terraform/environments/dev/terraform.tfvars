@@ -3,3 +3,4 @@ project_name    = "boba-tech-test"
 environment     = "dev"
 domain_name     = "kihellowebserver.co.uk"
 hosted_zone_id  = "Z056239524OLC450SQQVI"
+access_cidrs = [ "91.201.160.4" ]

@@ -43,11 +43,22 @@ resource "aws_eks_cluster" "main" {
   vpc_config {
     subnet_ids              = concat(var.private_subnet_ids, var.public_subnet_ids)
     endpoint_private_access = true
-    endpoint_public_access  = true  # set to false and use a bastion in prod
+    endpoint_public_access  = true   #Public access enabled but restricted to known operator CIDRs via public_access_cidrs  
+    public_access_cidrs = var.access_cidrs
+    
   }
 
+  
+   
   # Enables control plane logging for audit and debugging
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+
+  encryption_config {
+    provider {
+        key_arn = aws_kms_key.eks_secrets.arn
+    }
+    resources = ["secrets"]
+  }
 
   depends_on = [
     aws_iam_role_policy_attachment.cluster_policy,
@@ -205,46 +216,20 @@ resource "aws_iam_policy" "aws_load_balancer_controller" {
   policy = file("${path.module}/policies/aws-load-balancer-controller.json")
 }
 
-#----------------- External Secrets Operator IAM Policy -------------------#
+#---------------------- KMS key for EKS secrets encryption ------------------#
 
-resource "aws_iam_role" "external_secrets" {
-  name = "${local.name_prefix}-external-secrets-role"
+resource "aws_kms_key" "eks_secrets" {
+  description             = "KMS key for encrypting EKS secrets in the cluster"
+  deletion_window_in_days = 7
+  enable_key_rotation =  true
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = {
-        Federated = aws_iam_openid_connect_provider.eks.arn
-      }
-      Action = "sts:AssumeRoleWithWebIdentity"
-      Condition = {
-        StringEquals = {
-          "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub" = "system:serviceaccount:external-secrets:external-secrets"
-          "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:aud" = "sts.amazonaws.com"
-        }
-      }
-    }]
+
+  tags = merge(var.tags, {
+    Name = "${local.name_prefix}-eks-secrets-key"
   })
-
-  tags = var.tags
 }
 
-resource "aws_iam_role_policy" "external_secrets" {
-  name = "${local.name_prefix}-external-secrets-policy"
-  role = aws_iam_role.external_secrets.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "secretsmanager:GetSecretValue",
-          "secretsmanager:DescribeSecret",
-        ]
-        Resource = "arn:aws:secretsmanager:*:*:secret:${var.project_name}-*"
-      }
-    ]
-  })
+resource "aws_kms_alias" "eks_secrets" {
+  name          = "alias/${local.name_prefix}-eks-secrets"
+  target_key_id = aws_kms_key.eks_secrets.id
 }

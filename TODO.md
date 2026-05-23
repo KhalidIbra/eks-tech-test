@@ -1,10 +1,10 @@
 # TODO
 
-Improvements and additions I would make if given more time and or budget
+Improvements and additions I would make if given more time 
 
 ## Secret Management
 
-Replace the manual `kubectl create secret` step with the External Secrets Operator. The IRSA role and IAM policy are already provisioned in the EKS Terraform module as I intended to use this in the beginning. However due to frequent errors and time-constraints, I dropped it.
+Replace the manual `kubectl create secret` step with the External Secrets Operator.I intended to use this in the beginning, however due to frequent errors and time-constraints, I dropped it.
 
 
 ## Multi-Environment
@@ -17,7 +17,6 @@ Currently only `dev` which works but would add `staging` and `prod` in a real sc
 
 ## Network Hardening
 
-- Restrict the EKS API endpoint to a VPN CIDR via `public_access_cidrs`.
 - Add `NetworkPolicy` resources to constrain pod-to-pod traffic. 
 - Enable VPC Flow Logs to CloudWatch.
 - Add a WAF in front of the ALB for managed rule sets.
@@ -48,6 +47,7 @@ Currently only `dev` which works but would add `staging` and `prod` in a real sc
 ## Operational
 
 - A `bootstrap/` Terraform config with local state, creating the S3 backend bucket, DynamoDB lock table, GitHub OIDC provider, and CI IAM role. Currently created in the AWS console as a one-time setup, which is fast but not reproducible.
+- A separate infrastructure pipeline which prompts Terraform to provision/update resources.
 - Runbooks for common incidents
 - Disaster recovery plan and tested restore procedure for RDS snapshots.
 - Cost monitoring: AWS Budgets with alerts defined

@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/KhalidIbra/boba-tech-test.git
+    repoURL: https://github.com/KhalidIbra/eks-tech-test.git
     targetRevision: main
     path: k8s/apps
   destination:
