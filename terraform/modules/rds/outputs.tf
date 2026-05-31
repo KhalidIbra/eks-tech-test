@@ -19,11 +19,11 @@ output "db_name" {
 }
 
 output "db_credentials_secret_arn" {
-  description = "ARN of the Secrets Manager secret containing DB credentials"
-  value       = aws_secretsmanager_secret.db_credentials.arn
+  description = "ARN of the Secrets Manager secret that RDS manages with master credentials"
+  value       = aws_db_instance.mysql.master_user_secret[0].secret_arn
 }
 
-output "db_credentials_secret_name" {
-  description = "Name of the Secrets Manager secret (use this in External Secrets Operator)"
-  value       = aws_secretsmanager_secret.db_credentials.name
+output "db_credentials_secret_id" {
+  description = "Secret ID for use with aws secretsmanager get-secret-value"
+  value       = aws_db_instance.mysql.master_user_secret[0].secret_arn
 }

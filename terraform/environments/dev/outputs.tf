@@ -39,6 +39,22 @@ output "app_url" {
   value = "https://hello.${var.domain_name}"
 }
 
-output "external_secrets_role_arn" {
-  value = module.eks.external_secrets_role_arn
+output "rds_credentials_secret_arn" {
+  value       = module.rds.db_credentials_secret_arn
+}
+
+output "rds_endpoint_address" {
+  value = module.rds.db_instance_address
+}
+
+output "rds_port" {
+  value = module.rds.db_instance_port
+}
+
+output "rds_db_name" {
+  value = module.rds.db_name
+}
+
+output "rds_master_username" {
+  value = module.rds.db_master_username
 }

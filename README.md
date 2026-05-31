@@ -56,19 +56,6 @@ terraform apply
 Can be run using the makefile with instruction 'makefile bootstrap'.
 
 
-# 3. Create the DB credentials Secret 
-kubectl create namespace webserver --dry-run=client -o yaml | kubectl apply -f -
-SECRET_JSON=$(aws secretsmanager get-secret-value \
-  --secret-id devops-eks-demo-dev-db-credentials \
-  --region eu-west-2 \
-  --query SecretString --output text)
-kubectl -n webserver create secret generic webserver-db-credentials \
-  --from-literal=DB_HOST=$(echo "$SECRET_JSON" | jq -r .host) \
-  --from-literal=DB_PORT=$(echo "$SECRET_JSON" | jq -r .port) \
-  --from-literal=DB_USER=$(echo "$SECRET_JSON" | jq -r .username) \
-  --from-literal=DB_PASSWORD=$(echo "$SECRET_JSON" | jq -r .password) \
-  --from-literal=DB_NAME=$(echo "$SECRET_JSON" | jq -r .dbname)
-
 # 4. Once the ALB exists, create the Route53 A-record (alias to the ALB DNS name)
 kubectl -n webserver get ingress webserver
 # Use the ADDRESS column value to create a Route53 alias for hello.<your-domain>
@@ -97,7 +84,7 @@ Rollback can easily be done through the ArgoCD UI
 
 **Terraform stops at the cluster boundary.** Terraform provisions cloud resources and IAM roles. ArgoCD owns everything inside the cluster. 
 
-**Manual DB credentials Secret.** A one-time `kubectl create secret` after Terraform apply. 
+**RDS Managed DB credentials Secret.** DB master password is generated and owned by RDS before being stored as a Kubernetes Secret using the bootstrap script.
 
 ## Security Considerations
 

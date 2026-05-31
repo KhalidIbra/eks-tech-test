@@ -31,7 +31,6 @@ resource "aws_db_instance" "mysql" {
 
   db_name  = var.database_name
   username = var.master_username
-  password = random_password.master.result
   port     = 3306
 
   multi_az               = var.multi_az
@@ -70,25 +69,3 @@ resource "aws_db_instance" "mysql" {
   })
 }
 
-#------------------ AWS Secrets Manager Secret for DB Credentials ------------------#
-
-resource "aws_secretsmanager_secret" "db_credentials" {
-  name        = "${var.identifier}-db-credentials"
-  description = "Master credentials for RDS instance ${var.identifier}"
-
-  recovery_window_in_days = 0
-
-  tags = var.tags
-}
-
-resource "aws_secretsmanager_secret_version" "db_credentials" {
-  secret_id = aws_secretsmanager_secret.db_credentials.id
-
-  secret_string = jsonencode({
-    username = var.master_username
-    password = random_password.master.result
-    host     = aws_db_instance.mysql.address
-    port     = aws_db_instance.mysql.port
-    dbname   = var.database_name
-  })
-}
