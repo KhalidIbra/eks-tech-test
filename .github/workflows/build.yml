@@ -20,7 +20,7 @@ permissions:
 env:
   AWS_REGION: eu-west-2
   ECR_REPOSITORY: boba-tech-test-webserver
-  ROLE_TO_ASSUME: ${ secrets.ROLE_TO_ASSUME }
+  ROLE_TO_ASSUME: ${{ secrets.ROLE_TO_ASSUME }}
 
 jobs:
   test:
