@@ -1,0 +1,8 @@
+clusterName: boba-tech-test-dev-cluster
+region: eu-west-2
+vpcId: vpc-0ac9aa19d5c7dd0b3
+serviceAccount:
+  create: true
+  name: aws-load-balancer-controller
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::676206939809:role/boba-tech-test-dev-aws-lbc-role

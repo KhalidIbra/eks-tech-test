@@ -84,3 +84,19 @@ module "securitygroups" {
 
   tags = local.common_tags
 }
+
+#------------ local file for AWS LBC values ------------
+
+resource "local_file" "aws_lbc_values" {
+  filename = "${path.module}/../../../argocd/values/aws-load-balancer-controller-values.yaml"
+  content  = <<-EOT
+    clusterName: ${module.eks.cluster_name}
+    region: ${var.region}
+    vpcId: ${module.networking.vpc_id}
+    serviceAccount:
+      create: true
+      name: aws-load-balancer-controller
+      annotations:
+        eks.amazonaws.com/role-arn: ${module.eks.aws_load_balancer_controller_role_arn}
+  EOT
+}

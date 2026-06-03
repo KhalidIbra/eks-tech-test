@@ -5,21 +5,16 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://aws.github.io/eks-charts
-    chart: aws-load-balancer-controller
-    targetRevision: 1.7.2
-    helm:
-      values: |
-        clusterName: boba-tech-test-dev-cluster
-        region: eu-west-2
-        vpcId: vpc-0b0afe632efc4713b
-        serviceAccount:
-          create: true
-          name: aws-load-balancer-controller
-          annotations:
-            eks.amazonaws.com/role-arn: arn:aws:iam::676206939809:role/boba-tech-test-dev-aws-lbc-role
-
+  sources:
+    - repoURL: https://aws.github.io/eks-charts
+      chart: aws-load-balancer-controller
+      targetRevision: 1.7.2
+      helm:
+        valueFiles:
+          - $values/argocd/values/aws-load-balancer-controller-values.yaml
+    - repoURL: https://github.com/KhalidIbra/eks-tech-test.git
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
