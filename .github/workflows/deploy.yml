@@ -20,7 +20,7 @@ permissions:
 
 env:
   AWS_REGION: eu-west-2
-  ECR_REGISTRY: ${ secrets.ECR_REGISTRY }
+  ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
   ECR_REPOSITORY: boba-tech-test-webserver
   MANIFEST_DIR: k8s/apps/
 
@@ -42,7 +42,7 @@ jobs:
       - name: Update image tag
         working-directory: ${{ env.MANIFEST_DIR }}
         run: |
-          kustomize edit set image webserver=${ECR_REGISTRY}/${ECR_REPOSITORY}:${{ inputs.image_tag }}
+          kustomize edit set image webserver=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ inputs.image_tag }}
 
       - name: Commit and push
         run: |
