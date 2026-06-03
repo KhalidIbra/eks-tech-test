@@ -27,10 +27,6 @@ output "aws_load_balancer_controller_role_arn" {
   value = module.eks.aws_load_balancer_controller_role_arn
 }
 
-output "db_credentials_secret_name" {
-  value = module.rds.db_credentials_secret_name
-}
-
 output "certificate_arn" {
   value = module.dns_certs.certificate_arn
 }
@@ -55,6 +51,3 @@ output "rds_db_name" {
   value = module.rds.db_name
 }
 
-output "rds_master_username" {
-  value = module.rds.db_master_username
-}

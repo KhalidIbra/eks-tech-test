@@ -34,12 +34,6 @@ variable "database_name" {
   default     = "appdb"
 }
 
-variable "master_username" {
-  description = "Master DB username"
-  type        = string
-  default     = "admin"
-}
-
 variable "multi_az" {
   description = "Whether to deploy in Multi-AZ. Required for HA."
   type        = bool
@@ -88,4 +82,10 @@ variable "tags" {
   description = "Tags applied to all resources"
   type        = map(string)
   default     = {}
+}
+
+variable "master_username" {
+  description = "Master username for the RDS instance"
+  type        = string
+  default     = "admin"
 }
