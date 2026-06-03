@@ -24,11 +24,13 @@ A highly available webserver on EKS with a MySQL backend, deployed via GitOps. I
 │   └── apps/                  
 
 ├── argocd/
-│   ├── root-app.yaml         
+│   ├── bootstrap.yaml         
 │   └── apps/
 │       ├── aws-load-balancer-controller.yaml
 │       ├── monitoring.yaml     
 │       └── webserver.yaml
+    └── values/
+        └── aws-load-balancer-controller-values.yaml
 ├── app/                        
 ├── .github/workflows/
 │   ├── build.yml               
@@ -53,14 +55,14 @@ terraform apply
 
 './scripts/bootstrap.sh'
 
-Can be run using the makefile with instruction 'makefile bootstrap'.
+Can be run using the makefile with instruction 'make bootstrap'.
 
 
-# 4. Once the ALB exists, create the Route53 A-record (alias to the ALB DNS name)
+# 3. Once the ALB exists, create the Route53 A-record (alias to the ALB DNS name)
 kubectl -n webserver get ingress webserver
-# Use the ADDRESS column value to create a Route53 alias for hello.<your-domain>
+# Use the ADDRESS column value to create a Route53 alias for your domain
 
-# 5. Push an app change to trigger the first deploy
+# 4. Push an app change to trigger the first deploy
 # CI builds, pushes, updates the Kustomization, ArgoCD syncs, the site comes up at:
 # https://hello.kihellowebserver.co.uk
 ```
@@ -106,7 +108,6 @@ kubectl -n monitoring get secret monitoring-grafana \
 
 **Image security.** ECR repositories are configured with immutable tags so a pushed image can never be silently overwritten. Trivy scans every image in CI and fails the build on CRITICAL or HIGH severity findings. 
 
-**Container hardening.** Pods run as non-root with read-only root filesystem, dropped capabilities, and `allowPrivilegeEscalation: false`. Resource requests and limits are set on every container.
 
 
 ## Service Validation
