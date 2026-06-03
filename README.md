@@ -93,7 +93,7 @@ Rollback can easily be done through the ArgoCD UI
 
 **CI authentication.** GitHub Actions authenticates to AWS via OIDC federation. No long-lived access keys exist.
 
-**Cluster authentication.** EKS access entries grant cluster-admin to the provisioning IAM role. RBAC inside the cluster handles per-service permissions.
+**Cluster authentication.** Currently, cluster-admin access is implicitly granted to the provisioning IAM role. This is a vulnerability and in production I would use access entries so that admin access is explicit and auditable.  RBAC inside the cluster handles per-service permissions.
 
 **Pod-to-AWS authentication.** All AWS access from inside the cluster uses IAM Roles for Service Accounts. 
 
