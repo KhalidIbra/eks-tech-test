@@ -22,12 +22,6 @@ Currently only `dev` which works but would add `staging` and `prod` in a real sc
 - Add a WAF in front of the ALB for managed rule sets.
 
 
-## Supply Chain
-
-- Pin every GitHub Action to a commit SHA, not a tag to protect against tag mutation.
-- Add tfsec or Checkov to the CI pipeline as a Terraform pre-merge check.
-
-
 ## Reliability
 
 - RDS read replicas in the second AZ for read-heavy traffic; currently Multi-AZ standby is failover-only.
@@ -40,6 +34,7 @@ Currently only `dev` which works but would add `staging` and `prod` in a real sc
 
 ## CI/CD
 
+- Add tfsec or Checkov to the CI pipeline as a Terraform pre-merge check.
 - Branch protection on `main` with required status checks and required reviews.
 - Replace the default `GITHUB_TOKEN` for the bot commit with a GitHub App token that has commit-signing.
 - Notify deploys to chosen notification channel, e.g Slack, from the GitOps workflow.
